@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>App根组件</h2>
+    <h4>question页面</h4>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'question'
 }
 </script>
 
