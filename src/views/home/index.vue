@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <h4>home首页</h4>
-  </div>
+  <div class='container'>Home</div>
 </template>
 
 <script>
 export default {
-  name: 'home'
+  name: 'home-index'
 }
 </script>
 
-<style lang="less" scoped>
-</style>
+<style scoped lang='less'></style>

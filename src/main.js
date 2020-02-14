@@ -5,7 +5,8 @@ import store from './store'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import 'amfe-flexible/index.min.js'
-
+// 引入全局css样式文件，覆盖vant设置的样式：
+import '@/assets/css/global.css'
 Vue.use(Vant);
 
 Vue.config.productionTip = false

@@ -1,12 +1,32 @@
 <template>
-  <div></div>
+  <div class='container'>
+    <!-- van-skeleton  骨架屏 -->
+    <van-skeleton
+      title
+      avatar
+      :row="3"
+    />
+    <van-skeleton
+      title
+      avatar
+      :row="3"
+    />
+    <van-skeleton
+      title
+      avatar
+      :row="3"
+    />
+  </div>
 </template>
 
 <script>
-  export default {
-    name:'video'
+export default {
+  name: 'video-index'
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped lang='less'>
+.van-skeleton {
+  margin-top: 10px;
+}
 </style>
