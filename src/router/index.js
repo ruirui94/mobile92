@@ -38,7 +38,7 @@ const routes = [
     component: () => import('@/views/user/chat.vue') // 小智同学组件（聊天对话）
   },
   {
-    path: 'login',
+    path: '/login',
     name: 'login', // push{ name: 'login'}
     component: () => import('@/views/user/login.vue') // 登录组件
   },

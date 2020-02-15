@@ -8,7 +8,7 @@ const USER_KEY = 'hm-toutiao-m-user'
 export default new Vuex.Store({
   state: {
     // 存储用户信息：
-    user: JSON.parse(localStorage.getItem(USER_KEY) || {})
+    user: JSON.parse(localStorage.getItem(USER_KEY) || '{}')
     // 通过 || 设定 如果localStorage没有数据，就返回空对象
   },
   mutations: {
