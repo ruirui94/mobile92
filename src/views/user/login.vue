@@ -54,6 +54,8 @@
         size="small"
         round
         block
+        :loading="isLogin"
+        loading-text="登录中..."
         @click="login()"
       >登录</van-button>
     </div>
@@ -74,11 +76,12 @@ export default {
   },
   data () {
     return {
+      isLogin: false,
       loginForm: {
-        mobile:'',
-        code:''
-        // mobile: '13911111111',
-        // code: '246810'
+        // mobile:'',
+        // code:''
+        mobile: '13911111111',
+        code: '246810'
       }
     }
   },
@@ -88,6 +91,8 @@ export default {
       if (!valid) {
         return false // 校验失败停止后续代码的执行
       }
+      // 按钮loading开启：
+      this.isLogin = true
       try {
         // 2.调用api方法apiUserlogin
         const result = await apiUserlogin(this.loginForm)
@@ -98,8 +103,10 @@ export default {
         this.$router.push('/home')
       } catch (error) {
         // 3.vant 弹出错误提示方法：
-        this.$toast.fail('手机号或验证码错误' + error)
+        return this.$toast.fail('手机号或验证码错误' + error)
       }
+      // 按钮loading关闭：
+      this.isLogin = false
     }
   }
 }
