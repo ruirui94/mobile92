@@ -8,7 +8,8 @@
         :key="item.id"
       >
         <!-- com-article -->
-        <com-article></com-article>
+        <!-- 【推荐文章列表】将频道id传给子组件com-article -->
+        <com-article :channelId="item.id"></com-article>
       </van-tab>
     </van-tabs>
   </div>
