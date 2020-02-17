@@ -1,17 +1,17 @@
 <template>
-  <div id="container">
+  <div class="container">
     <!-- vant 导航栏 组件： -->
     <van-nav-bar
+      fixed
       right-text="搜索"
       title="黑马头条"
       @click-right="$router.push('/search')"
-    >
-      <!-- <van-icon
+    />
+    <!-- <van-icon
         name="search"
         slot="right"
       >搜索</van-icon> -->
-    </van-nav-bar>
-    <div id="my-wrapper">
+    <div class="my-wrapper">
       <router-view></router-view>
     </div>
     <!-- vant tabbar 标签栏组件： -->
@@ -23,17 +23,17 @@
       >首页</van-tabbar-item>
       <van-tabbar-item
         to="/question"
-        icon="search"
+        icon="chat-o"
         dot
       >问答</van-tabbar-item>
       <van-tabbar-item
         to="/video"
-        icon="friends-o"
+        icon="video-o"
         info="5"
       >视频</van-tabbar-item>
       <van-tabbar-item
         to="/user"
-        icon="setting-o"
+        icon="user-o"
         info="20"
       >我的</van-tabbar-item>
     </van-tabbar>
