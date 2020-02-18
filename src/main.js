@@ -11,6 +11,13 @@ import '@/assets/css/global.css'
 // vee-validate功能包的使用
 import '@/utils/validate.js'
 
+// 【过滤器】
+import * as filters from '@/utils/filters.js'
+// 【过滤器】注册：
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 Vue.use(Vant);
 Vue.use(Lazyload); // 【懒加载】注册懒加载指令
 
