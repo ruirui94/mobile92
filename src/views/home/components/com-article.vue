@@ -48,15 +48,25 @@
               <span>作者：{{item.aut_name}}</span>&nbsp;
               <span>评论：{{item.comm_count}}</span>&nbsp;
               <span>时间：{{item.pubdate | formatTime}}</span>&nbsp;
+              <!-- 图标按钮设置 -->
+              <van-icon
+                name="close"
+                style="float:right"
+                @click="showDialog=true"
+              />
             </p>
           </template>
         </van-cell>
       </van-list>
     </van-pull-refresh>
+    <!-- 使用弹框组件： -->
+    <more-action v-model="showDialog"></more-action>
   </div>
 </template>
 
 <script>
+// 2.导入【弹框组件】
+import MoreAction from './com-moreaction.vue'
 // 1.导入【推荐文章列表】api 
 import { apiArticleList } from '@/api/article.js'
 export default {
@@ -68,8 +78,12 @@ export default {
       required: true
     }
   },
+  components: {
+    MoreAction
+  },
   data () {
     return {
+      showDialog: false, // 是否显示弹框
       times: Date.now(), // 时间戳
       articleList: [],// 文章列表
       isLoading: false,
