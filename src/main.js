@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Vant from 'vant';
+import Vant, { Lazyload } from 'vant'; // 【懒加载】引入{ Lazyload }
 import 'vant/lib/index.css';
 import 'amfe-flexible/index.min.js'
 // 引入全局css样式文件，覆盖vant设置的样式：
@@ -12,6 +12,7 @@ import '@/assets/css/global.css'
 import '@/utils/validate.js'
 
 Vue.use(Vant);
+Vue.use(Lazyload); // 【懒加载】注册懒加载指令
 
 Vue.config.productionTip = false
 

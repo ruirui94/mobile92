@@ -19,8 +19,36 @@
         >
           <!-- 通过命名插槽体现label的描述信息 -->
           <template slot="label">
-            <span class="custom-title">单元格</span>
-            <van-tag type="danger">标签</van-tag>
+            <van-grid
+              :border="false"
+              v-if="item.cover.type>0"
+              :column-num="item.cover.type"
+            >
+              <van-grid-item
+                v-for="(item2,key2) in item.cover.images"
+                :key="key2"
+              >
+                <van-image
+                  fit="cover"
+                  :src="item2"
+                  width="100"
+                  height="100"
+                  lazy-load
+                >
+                  <!-- <template v-slot:loading>
+                    <van-loading
+                      type="spinner"
+                      size="20"
+                    />
+                  </template> -->
+                </van-image>
+              </van-grid-item>
+            </van-grid>
+            <p>
+              <span>作者：{{item.aut_name}}</span>&nbsp;
+              <span>评论：{{item.comm_count}}</span>&nbsp;
+              <span>时间：{{item.pubdate}}</span>&nbsp;
+            </p>
           </template>
         </van-cell>
       </van-list>
