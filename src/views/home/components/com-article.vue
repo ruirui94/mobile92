@@ -4,7 +4,10 @@
     <van-pull-refresh
       v-model="isLoading"
       @refresh="onRefresh"
+      :success-text="downSuccessText"
+      success-duration="1000"
     >
+      <!-- 下拉完毕 提示信息和停留时长 -->
       <van-list
         v-model="loading"
         :finished="finished"
@@ -35,12 +38,6 @@
                   height="100"
                   lazy-load
                 >
-                  <!-- <template v-slot:loading>
-                    <van-loading
-                      type="spinner"
-                      size="20"
-                    />
-                  </template> -->
                 </van-image>
               </van-grid-item>
             </van-grid>
@@ -87,6 +84,7 @@ export default {
   },
   data () {
     return {
+      downSuccessText: '', // 下拉完成提示信息
       nowArticleID: '', // 不感兴趣文章id
       showDialog: false, // 是否显示弹框
       times: Date.now(), // 时间戳
@@ -122,19 +120,28 @@ export default {
       // 不直接给data数据，先进行返回：
       return result
     },
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast.success('刷新成功')
-        this.isLoading = false
-        this.onLoad()
-      }, 1000)
+    async onRefresh () {
+      // 【延时器】
+      await this.$sleep(800)
+      // 1.下拉获得文章列表数据：
+      const articles = await this.getArticleList()
+      if (articles.results.length > 0) {
+        // 2.把数据从前 追加给articleList 
+        this.articleList.unshift(...articles.results)
+        this.times = articles.pre_timestamp
+        this.downSuccessText = '文章更新成功'
+      } else {
+        this.downSuccessText = '文章已经是最新的'
+      }
+      // 4.停止加载状态
+      this.isLoading = false;
     },
     async onLoad () {
       // 【延时器】应用：
       await this.$sleep(800)
       // 1.下拉获得文章列表数据：
       const articles = await this.getArticleList()
-      if (articles.results.length !== 0) {
+      if (articles.results.length > 0) {
         // 2.把数据push 追加给articleList 
         this.articleList.push(...articles.results)
         this.times = articles.pre_timestamp

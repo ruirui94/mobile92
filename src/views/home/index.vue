@@ -1,6 +1,15 @@
 <template>
   <div class="container">
     <van-tabs v-model="activeChannelIndex">
+      <!-- 弹出层图标： -->
+      <div
+        slot="nav-right"
+        class="channel-more"
+        @click="showChannel= true"
+      >
+        <!-- 设置弹出层显示 -->
+        <van-icon name="wap-nav" />
+      </div>
       <!-- 增加div 使得vant插件生效 -->
       <van-tab
         :title="item.name"
@@ -12,20 +21,26 @@
         <com-article :channelId="item.id"></com-article>
       </van-tab>
     </van-tabs>
+    <!-- 频道【弹出层】组件 -->
+    <com-channel v-model="showChannel"></com-channel>
   </div>
 </template>
 
 <script>
+// 引入【弹出层组件】
+import ComChannel from './components/com-channel'
 // 【频道列表获取api】
 import { apiChannelList } from '@/api/channel.js'
 import ComArticle from './components/com-article'
 export default {
   name: 'home',
   components: {
+    ComChannel,
     ComArticle
   },
   data () {
     return {
+      showChannel: false, // 控制频道【弹出层】是否显示
       channelList: [], // 频道
       activeChannelIndex: 0
     }
@@ -44,6 +59,22 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// 设置【更多频道】css样式：
+.channel-more {
+  position: fixed;
+  right: 0;
+  background-color: #fff;
+  line-height: 88px;
+  width: 90px;
+  text-align: center;
+  font-size: 40px;
+}
+/*频道列表*/
+.van-tabs {
+  /deep/ .van-tabs__wrap {
+    width: 90%; /*设置频道列表最大宽度，避免盖住右侧按钮*/
+  }
+}
 .van-tabs {
   // 弹性布局：
   display: flex;
