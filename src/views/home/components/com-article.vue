@@ -52,7 +52,7 @@
               <van-icon
                 name="close"
                 style="float:right"
-                @click="showDialog=true"
+                @click="displayDialog(item.art_id.toString())"
               />
             </p>
           </template>
@@ -60,7 +60,11 @@
       </van-list>
     </van-pull-refresh>
     <!-- 使用弹框组件： -->
-    <more-action v-model="showDialog"></more-action>
+    <more-action
+      v-model="showDialog"
+      :articleID="nowArticleID"
+      @dislikeSuccess="handleDislikeSuccess"
+    ></more-action>
   </div>
 </template>
 
@@ -83,6 +87,7 @@ export default {
   },
   data () {
     return {
+      nowArticleID: '', // 不感兴趣文章id
       showDialog: false, // 是否显示弹框
       times: Date.now(), // 时间戳
       articleList: [],// 文章列表
@@ -97,6 +102,18 @@ export default {
   //   this.getArticleList()
   // },
   methods: {
+    handleDislikeSuccess () {
+      // 获取【不感兴趣】文章的下标：
+      const index = this.articleList.findIndex(
+        item => item.art_id.toString() === this.nowArticleID
+      )
+      // 根据下标删除对应文章：
+      this.articleList.splice(index, 1)
+    },
+    displayDialog (artID) {
+      this.showDialog = true
+      this.nowArticleID = artID
+    },
     async getArticleList () {
       // 调用api方法：
       const result = await apiArticleList({ channel_id: this.channelId, timestamp: this.times })

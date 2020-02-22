@@ -27,7 +27,7 @@ instance.interceptors.request.use(function (config) {
   // 依据vuex判断用户是否已登录（有无token）
   if (store.state.user.token) {
     // 添加请求头：
-    config.headers['Authorization'] = `Bearer${store.state.user.token}`
+    config.headers.Authorization = 'Bearer ' + store.state.user.token
   }
   return config;
 }, function (error) {

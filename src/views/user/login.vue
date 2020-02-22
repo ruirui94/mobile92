@@ -1,9 +1,6 @@
 <template>
-  <div class="page-user-login">
-    <van-nav-bar
-      @click-left="$router.back()"
-      title="登录"
-    ></van-nav-bar>
+  <div class="user-login">
+    <van-nav-bar title="登录"></van-nav-bar>
     <!-- Field 是基于 Cell 实现的，可以使用 CellGroup 作为父元素来提供外边框。 -->
     <van-cell-group>
       <!-- A.登录校验： -->
@@ -100,7 +97,7 @@ export default {
         // 5.调用 vuex 存储token：
         this.$store.commit('updateUser', result)
         // 4.页面跳转到home
-        this.$router.push('/home')
+        this.$router.push('/')
       } catch (error) {
         // 3.vant 弹出错误提示方法：
         return this.$toast.fail('手机号或验证码错误' + error)
