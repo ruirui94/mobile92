@@ -23,13 +23,13 @@ export function apiArticleDislike (articleID) {
   })
 }
 // 创建【举报】api函数：
-export function apiArticleReport ({ taget, type, remart = '' }) {
+export function apiArticleReport ({ articleID, type, remart = '' }) {
   return request({
     url: '/app/v1_0/article/reports',
     method: 'post',
     data: {
       target: articleID,
-      type,
+      type, // 对象成员简易赋值  type:type
       remart
     }
   })

@@ -5,6 +5,7 @@
       @input="$emit('input',$event)"
       :show-confirm-button="false"
       closeOnClickOverlay
+      @close="isOneLevel=true"
     >
       <!-- 一级内容： -->
       <van-cell-group v-if="isOneLevel">
@@ -44,8 +45,9 @@
 </template>
 
 <script>
+// 2.导入【举报】api函数：
 // 1.导入【对章不喜欢】api函数：
-import { apiArticleDislike } from '@/api/article'
+import { apiArticleDislike, apiArticleReport } from '@/api/article'
 export default {
   name: 'com-moreaction',
   props: {
@@ -76,7 +78,22 @@ export default {
     }
   },
   methods: {
-    articleReport () { },
+    async articleReport (type) {
+      try {
+        const obj = { articleID: this.articleID, type }
+        await apiArticleReport(obj)
+      } catch (err) {
+        if (err.response.status === 409) {
+          return this.$toast.fail('文章已经被举报过了')
+        } else {
+          return this.$toast.fail('文章举报失败')
+        }
+      }
+      // 成功提示：
+      this.$toast.success('举报成功！')
+      // 弹出框消失：
+      this.$emit('input', false)
+    },
     async articleDislike () {
       const result = await apiArticleDislike(this.articleID)
       // console.log(result)
