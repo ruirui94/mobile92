@@ -22,7 +22,11 @@
       </van-tab>
     </van-tabs>
     <!-- 频道【弹出层】组件 -->
-    <com-channel v-model="showChannel"></com-channel>
+    <com-channel
+      v-model="showChannel"
+      :channelList="channelList"
+      :activeChannelIndex="activeChannelIndex"
+    ></com-channel>
   </div>
 </template>
 
@@ -69,18 +73,15 @@ export default {
   text-align: center;
   font-size: 40px;
 }
-/*频道列表*/
-.van-tabs {
-  /deep/ .van-tabs__wrap {
-    width: 90%; /*设置频道列表最大宽度，避免盖住右侧按钮*/
-  }
-}
 .van-tabs {
   // 弹性布局：
   display: flex;
   // 列方向：
   flex-direction: column;
   height: 100%;
+  /deep/ .van-tabs__wrap {
+    width: 90%; /*设置频道列表最大宽度，避免盖住右侧按钮*/
+  }
   /deep/ .van-tabs__content {
     flex: 1;
     overflow: hidden;
