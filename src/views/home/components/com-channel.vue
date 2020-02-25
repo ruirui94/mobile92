@@ -7,6 +7,7 @@
     round
     position="bottom"
     :style="{ height: '95%' }"
+    @close="isEdit=false"
   >
     <div class="channel">
       <div class="channel-head">
@@ -33,6 +34,7 @@
         <van-grid-item
           v-for="(item,k) in channelList"
           :key="item.id"
+          @click="clickChannel(item.id,k)"
         >
           <span
             class="text"
@@ -118,10 +120,26 @@ export default {
     }
   },
   methods: {
+    // 【频道激活】
+    clickChannel (channelID, index) {
+      // 【进入编辑状态，执行删除逻辑】：
+      if (this.isEdit && index > 0) {
+        this.userToRest(channelID, index)
+        return false // 停止后续代码执行
+      }
+      // 弹出层消失：
+      this.$emit('input', false)
+      // 修改activeChannelIndex
+      this.$emit('update:activeChannelIndex', index)
+    },
     // 【删除频道】：
     userToRest (channelID, index) {
       this.channelList.splice(index, 1) // 页面
       apiChannelDel(channelID) // localStorage
+      // 删除频道下标===剩下频道的长度 即删除的就是最后一个频道
+      if (this.channelList.length === index) {
+        this.$emit('update:activeChannelIndex', index - 1)
+      }
     },
     // channel : item in restChannel 【推荐频道】：
     restToUser (channel) {
