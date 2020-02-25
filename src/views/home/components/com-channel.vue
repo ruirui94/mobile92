@@ -57,6 +57,7 @@
         <van-grid-item
           v-for="item in restChannel"
           :key="item.id"
+          @click="restToUser(item)"
         >
           <div class="info">
             <span class="text">{{item.name}}</span>
@@ -68,7 +69,7 @@
 </template>
 
 <script>
-import { apiChannelAll } from '@/api/channel.js'
+import { apiChannelAll, apiChannelAdd } from '@/api/channel.js'
 export default {
   name: 'com-channel',
   props: {
@@ -109,6 +110,12 @@ export default {
     }
   },
   methods: {
+    // channel : item in restChannel 推荐频道
+    restToUser (channel) {
+      this.channelList.push(channel)
+      apiChannelAdd(channel)
+    },
+    // 获得全部频道
     async getAllChannel () {
       const result = await apiChannelAll()
       // console.log(result);

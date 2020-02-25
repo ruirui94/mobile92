@@ -1,6 +1,7 @@
 // 1.导入axios：
 import request from '@/utils/request.js'
 
+/*----------------------本地持久化---------------------*/
 import store from '@/store' // 导入vuex模块，以便知道当前用户是否登录系统
 
 // 本地持久化存储频道设置的key(游客 和 登录用户 分别设置)
@@ -54,5 +55,21 @@ export function apiChannelAll () {
   return request({
     url: '/app/v1_0/channels',
     method: 'get'
+  })
+}
+/*-------------------------------------------*/
+// 添加频道
+export function apiChannelAdd (channel) {
+  return new Promise(function (resolve) {
+    let key = store.state.user.token ? CHANNEL_KET_VIP : CHANNEL_KEY_TRAVEL // 获取缓存的key
+    let localChannels = localStorage.getItem(key) // 获取缓存
+    if (localChannels) {
+      // 缓存有数据
+      let channels = JSON.parse(localChannels)
+      channels.push(channel) // 添加
+      // 重新写入缓存
+      localStorage.setItem(key, JSON.stringify(channels))
+      resolve() // 成功执行
+    }
   })
 }
