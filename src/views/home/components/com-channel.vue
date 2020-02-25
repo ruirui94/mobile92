@@ -20,7 +20,8 @@
             plain
             size="mini"
             round
-          >编辑</van-button>
+            @click="isEdit=!isEdit"
+          >{{isEdit?'完成':'编辑'}}</van-button>
         </div>
       </div>
       <!--van-grid 没有设置column-num属性，默认是4列-->
@@ -37,7 +38,13 @@
             class="text"
             :style="{color:k===activeChannelIndex?'red':''}"
           >{{item.name}}</span>
-          <!-- <van-icon class="close-icon" name="close" /> -->
+          <!-- x号小图标 推荐 上没有x---》k>0 -->
+          <van-icon
+            v-if="k>0 && isEdit === true"
+            class="close-icon"
+            name="close"
+            @click="userToRest(item.id,k)"
+          />
         </van-grid-item>
       </van-grid>
     </div>
@@ -69,7 +76,7 @@
 </template>
 
 <script>
-import { apiChannelAll, apiChannelAdd } from '@/api/channel.js'
+import { apiChannelAll, apiChannelAdd, apiChannelDel } from '@/api/channel.js'
 export default {
   name: 'com-channel',
   props: {
@@ -88,6 +95,7 @@ export default {
   },
   data () {
     return {
+      isEdit: false, // 编辑按钮的文字显示切换 编辑/完成
       channelAll: [] // 全部频道
     }
   },
@@ -110,7 +118,12 @@ export default {
     }
   },
   methods: {
-    // channel : item in restChannel 推荐频道
+    // 【删除频道】：
+    userToRest (channelID, index) {
+      this.channelList.splice(index, 1) // 页面
+      apiChannelDel(channelID) // localStorage
+    },
+    // channel : item in restChannel 【推荐频道】：
     restToUser (channel) {
       this.channelList.push(channel)
       apiChannelAdd(channel)

@@ -57,19 +57,34 @@ export function apiChannelAll () {
     method: 'get'
   })
 }
-/*-------------------------------------------*/
-// 添加频道
+/*----------------------添加频道---------------------*/
 export function apiChannelAdd (channel) {
   return new Promise(function (resolve) {
     let key = store.state.user.token ? CHANNEL_KET_VIP : CHANNEL_KEY_TRAVEL // 获取缓存的key
     let localChannels = localStorage.getItem(key) // 获取缓存
-    if (localChannels) {
-      // 缓存有数据
-      let channels = JSON.parse(localChannels)
-      channels.push(channel) // 添加
-      // 重新写入缓存
-      localStorage.setItem(key, JSON.stringify(channels))
-      resolve() // 成功执行
-    }
+
+    // 缓存有数据
+    let channels = JSON.parse(localChannels)
+    channels.push(channel) // 添加
+    // 重新写入缓存
+    localStorage.setItem(key, JSON.stringify(channels))
+    resolve() // 成功执行
+
+  })
+}
+/*----------------------删除频道---------------------*/
+export function apiChannelDel (id) {
+  return new Promise(function (resolve) {
+    let key = store.state.user.token ? CHANNEL_KET_VIP : CHANNEL_KEY_TRAVEL // 获取缓存的key
+    let localChannels = localStorage.getItem(key) // 获取缓存
+
+    // 缓存有数据
+    let channels = JSON.parse(localChannels)
+    // 排除删除的id
+    channels = channels.filter(item => item.id !== id)
+    // 重新写入缓存
+    localStorage.setItem(key, JSON.stringify(channels))
+    resolve() // 成功执行
+
   })
 }
