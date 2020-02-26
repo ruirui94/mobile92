@@ -18,8 +18,11 @@
         <van-cell
           v-for="item in articleList"
           :key="item.art_id.toString()"
-          :title="item.title"
         >
+          <span
+            slot="title"
+            @click="$router.push({name:'article',params:{aid:item.art_id}})"
+          >{{item.title}}</span>
           <!-- 通过命名插槽体现label的描述信息 -->
           <template slot="label">
             <van-grid
@@ -49,8 +52,9 @@
               <van-icon
                 name="close"
                 style="float:right"
-                @click="displayDialog(item.art_id.toString())"
+                @click.stop="displayDialog(item.art_id.toString())"
               />
+              <!-- .stop 阻止事件冒泡 -->
             </p>
           </template>
         </van-cell>

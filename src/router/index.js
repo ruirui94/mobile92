@@ -52,7 +52,8 @@ const routes = [
     component: () => import('@/views/search/result.vue') // 搜索结果组件 
   },
   {
-    path: '/article',
+    path: '/article/:aid', // :aid: 路由参赛
+    name: 'article',// push({ name: 'article' })
     component: () => import('@/views/article/index.vue') // 文章详情
   }
 ]

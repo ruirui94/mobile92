@@ -34,3 +34,11 @@ export function apiArticleReport ({ articleID, type, remart = '' }) {
     }
   })
 }
+
+// 【文章详情】api函数
+export function apiArticleDetail (articleID) {
+  return request({
+    url: '/app/v1_0/articles/' + articleID,
+    method: 'get'
+  })
+}
