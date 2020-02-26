@@ -18,6 +18,7 @@
         :key="item.art_id.toString()"
         :title="item.title"
       />
+      <!-- toSting 处理超大整形数字 -->
     </van-list>
   </div>
 </template>
