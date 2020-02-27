@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <van-nav-bar
+      fixed
       left-arrow
       @click-left="$router.back()"
       title="文章详情"
@@ -48,11 +49,14 @@
           icon="delete"
         >不喜欢</van-button>
       </div>
+      <!-- 评论列表 -->
+      <com-comment></com-comment>
     </div>
   </div>
 </template>
 
 <script>
+import ComComment from './components/com-comment'
 // 【文章详情api】导入
 import { apiArticleDetail } from '@/api/article.js'
 import { apiFollow, apiUnFollow } from '@/api/user.js'
@@ -64,6 +68,9 @@ export default {
       followLoading: false, // 关注按钮适当延迟$sleep(800)
       article: {} // 目标文章详情信息
     }
+  },
+  components: {
+    ComComment
   },
   computed: {
     // 简化路由参数获取：
