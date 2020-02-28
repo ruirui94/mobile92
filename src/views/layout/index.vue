@@ -24,18 +24,15 @@
       <van-tabbar-item
         to="/question"
         icon="chat-o"
-        dot
       >问答</van-tabbar-item>
       <van-tabbar-item
         to="/video"
         icon="video-o"
-        info="5"
       >视频</van-tabbar-item>
       <van-tabbar-item
-        to="/user"
+        :to="userGo"
         icon="user-o"
-        info="20"
-      >我的</van-tabbar-item>
+      >{{$store.state.user.token?'我的':'未登录'}}</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -43,7 +40,13 @@
 
 <script>
 export default {
-  name: 'layout'
+  name: 'layout-index',
+  computed: {
+    userGo: function () {
+      // 根据token状态，是否登录设置跳转路由地址：
+      return this.$store.state.user.token ? '/user' : '/login'
+    }
+  }
 }
 </script>
 
