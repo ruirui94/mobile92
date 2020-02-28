@@ -13,3 +13,15 @@ export function apiReplyList ({ commentID, replyID }) {
     }
   })
 }
+// 【添加评论或回复】api
+export function apiAddCorR ({ target, content, art_id = null }) {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/comments',
+    data: {
+      target,
+      content,
+      art_id
+    }
+  })
+}
