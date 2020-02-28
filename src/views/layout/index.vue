@@ -2,6 +2,7 @@
   <div class="container">
     <!-- vant 导航栏 组件： -->
     <van-nav-bar
+      v-if="showNavBar"
       fixed
       right-text="搜索"
       title="黑马头条"
@@ -11,7 +12,12 @@
         name="search"
         slot="right"
       >搜索</van-icon> -->
-    <div class="my-wrapper">
+    <!-- noTop 设置padding 为0 -->
+    <!-- showNavBar 为假的时候为 个人中心：  -->
+    <div
+      class="my-wrapper"
+      :class="{noTop:!showNavBar}"
+    >
       <router-view></router-view>
     </div>
     <!-- vant tabbar 标签栏组件： -->
@@ -42,6 +48,10 @@
 export default {
   name: 'layout-index',
   computed: {
+    showNavBar: function () {
+      // 判断是否在访问 个人中心：
+      return this.$route.path !== '/user'
+    },
     userGo: function () {
       // 根据token状态，是否登录设置跳转路由地址：
       return this.$store.state.user.token ? '/user' : '/login'
