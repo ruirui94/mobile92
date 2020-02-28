@@ -72,9 +72,9 @@
         is-link
       />
       <van-cell
+        @click="logout()"
         icon="warning-o"
         title="退出登录"
-        to="/login"
         is-link
       />
     </van-cell-group>
@@ -94,6 +94,21 @@ export default {
     this.getUserInfo()
   },
   methods: {
+    logout () {
+      // 确认：
+      this.$dialog.confirm({
+        title: '退出',
+        message: '请问确认退出系统吗？'
+      }).then(() => {
+        // 确认逻辑：
+        // 清除数据vuex：
+        this.$store.commit('clearUser')
+        // 跳转--》登录页面
+        this.$router.push('/login')
+      }).catch(() => {
+        // 取消逻辑，为空即可
+      })
+    },
     async getUserInfo () {
       const result = await apiUserInfo()
       this.userInfo = result
