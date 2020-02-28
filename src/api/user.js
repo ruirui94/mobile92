@@ -40,3 +40,11 @@ export function apiUnFollow (target) {
     url: `/app/v1_0/user/followings/${target}`
   })
 }
+
+// 【获取用户信息】-个人中心：
+export const apiUserInfo = () => {
+  return request({
+    url: `/app/v1_0/user`,
+    method: 'GET'
+  })
+}

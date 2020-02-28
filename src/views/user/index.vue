@@ -5,29 +5,29 @@
       <div class="info">
         <van-image
           round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
+          :src="userInfo.photo"
         />
         <h3 class="name">
-          我是华仔
+          {{userInfo.name}}
           <br />
           <van-tag size="mini">申请认证</van-tag>
         </h3>
       </div>
       <van-row>
         <van-col span="6">
-          <p>0</p>
+          <p>{{userInfo.art_count}}</p>
           <p>动态</p>
         </van-col>
         <van-col span="6">
-          <p>0</p>
+          <p>{{userInfo.follow_count}}</p>
           <p>关注</p>
         </van-col>
         <van-col span="6">
-          <p>0</p>
+          <p>{{userInfo.fans_count}}</p>
           <p>粉丝</p>
         </van-col>
         <van-col span="6">
-          <p>0</p>
+          <p>{{userInfo.like_count}}</p>
           <p>被赞</p>
         </van-col>
       </van-row>
@@ -82,8 +82,23 @@
 </template>
 
 <script>
+import { apiUserInfo } from '@/api/user.js'
 export default {
-  name: 'user-index'
+  name: 'user-index',
+  data () {
+    return {
+      userInfo: {} // 用户信息
+    }
+  },
+  created () {
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo () {
+      const result = await apiUserInfo()
+      this.userInfo = result
+    }
+  }
 }
 </script>
 
